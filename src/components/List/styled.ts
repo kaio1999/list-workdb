@@ -57,8 +57,8 @@ export const ModalSignUp = styled.div`
     display: flex;
     flex-direction: column;
     justify: content: space-between; 
-    padding: 8px 10px;
-    width: 100%;
+    padding: 25px 10px;
+    width: 65%;
 
     @media(max-width:800px){
         width: 100%;
@@ -113,9 +113,7 @@ const DivGeneral = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  @media (max-width: 800px) {
-  }
+  margin-top: 25px;
 
   .Loading {
     margin: 50px 0;

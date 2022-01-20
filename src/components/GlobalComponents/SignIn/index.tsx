@@ -45,6 +45,19 @@ const SignIn = () => {
 
   }
 
+  const date = new Date
+    const actualYear = date.getFullYear()
+    const actualMonth = date.getMonth() <= 9 ? date.getMonth() + '' + 1 : date.getMonth() + 1
+    const actualDay = date.getDate()
+
+    console.log(`${actualYear}-${actualMonth}-${actualDay}`,'data')
+
+    if(parseInt(born.split('-')[0]) > actualYear) {
+      setBorn('')
+      setSend(true)
+    }
+  
+
   return (
     <>
       {send || confirm ? (
@@ -73,7 +86,8 @@ const SignIn = () => {
               <div className='datePicker'>
                 <label>Data de nascimento</label>
               </div>
-              <Input className='input' required type='date' value={born} onChange={(e: any) => setBorn(e.target.value)} />
+              <Input className='input' required type='date' value={born} onChange={(e: any) => setBorn(e.target.value)}
+               max={`${actualYear}-${actualMonth}-${actualDay}`} min="1900-12-30" />
             </DivInput>
             <DivButton>
               <ButtonSignUp onClick={() => sendForm(

@@ -55,7 +55,7 @@ export const DivInput = styled.div`
     position: relative;
     padding-top: 13px;
     margin: 12px 0;
-    width: 30%;
+    width: 65%;
 
     input,
     button {
@@ -113,5 +113,5 @@ export const ButtonSignUp = styled.button`
 `;
 
 export const DivButton = styled.div`
-    width: 30%;
+    width: 65%;
 `;

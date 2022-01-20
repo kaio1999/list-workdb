@@ -21,16 +21,17 @@ const UserList = () => {
   const [deleteUser, setDeleteUser] = React.useState(false);
   const [deleteAll, setDeleteAll] = React.useState(false)
 
-  const url = `https://games-dd788-default-rtdb.firebaseio.com/.json`;
-
   React.useEffect(() => {
-    axios.get(url).then((res) => {
-      if (res.data) {
+    if (deleteUser || deleteAll || !deleteUser || !deleteAll) {
+      console.log('entrou ?')
+
+      const url = `https://games-dd788-default-rtdb.firebaseio.com/.json`;
+      axios.get(url).then((res) => {
         setData(Object.entries(res.data));
         setLoading(false);
-      }
-    });
-  }, []);
+      });
+    }
+  }, [deleteAll, deleteUser]);
 
   data.sort(function (a: any, b: any) {
     if (a[1].name < b[1].name) {
@@ -44,16 +45,33 @@ const UserList = () => {
     const url = `https://games-dd788-default-rtdb.firebaseio.com/${id}/.json`;
     axios.delete(url);
     setDeleteUser(true)
-    window.location.reload()
   }
 
   const CleanUsers = () => {
     const url = `https://games-dd788-default-rtdb.firebaseio.com/.json`;
     axios.delete(url);
     setDeleteAll(true)
-    window.location.reload()
   }
 
+  function age(year: number, month: number, day: number) {
+    const date = new Date
+    const actualYear = date.getFullYear()
+    const actualMonth = date.getMonth() + 1
+    const actual = date.getDate()
+
+      year = +year
+      month = +month
+      day = +day
+
+
+    let actualAge = actualYear - year
+
+    if (actualMonth < month || actualMonth == month && actual < day) {
+      actualAge--;
+    }
+
+    return actualAge < 0 ? 0 : actualAge;
+  }
 
   return (
     <>
@@ -67,9 +85,8 @@ const UserList = () => {
                 <div>
                   <span>{deleteUser ? 'Usuario deletado com sucesso!' : deleteAll && 'Usuarios excluidos com sucesso!'}</span>
                   <Button onClick={() => {
-                    setDeleteUser(false)
-                    setDeleteAll(false)
-                    }}>Ok</Button>
+                    window.location.reload()
+                  }}>Ok</Button>
                 </div>
               </DeletModal>
             ) : (
@@ -86,18 +103,23 @@ const UserList = () => {
                   </DivName>
                   <DivList>
                     {data.map((item: any) => {
-                      console.log(item, 'item')
                       return (
                         <List>
                           <ListDescribe>{item[1].name}</ListDescribe>
                           <ListDescribe>{item[1].surname}</ListDescribe>
                           <ListDescribe>
-                            {item[1].height}
+                            {item[1].height} cm
                           </ListDescribe>
                           <ListDescribe>
-                            {item[1].bornDate}
+                            {item[1].bornDate.split('-')[2] + '/' + item[1].bornDate.split('-')[1] + '/' + item[1].bornDate.split('-')[0]}
                           </ListDescribe>
-                          <ListDescribe>21</ListDescribe>
+                          <ListDescribe>{
+                            age(
+                              parseInt(item[1].bornDate.split('-')[0]),
+                              parseInt(item[1].bornDate.split('-')[1]),
+                              parseInt(item[1].bornDate.split('-')[2])
+                            )
+                          }</ListDescribe>
                           <BtnDelete onClick={() => Delete(item[0])}>deletar</BtnDelete>
                         </List>
                       );

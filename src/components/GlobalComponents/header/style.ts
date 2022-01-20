@@ -5,10 +5,20 @@ const Container = styled.header`
     height: 125px;
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    padding: 0px 20px;
+    padding: 0px 14px;
     box-shadow: 0 2px 2px 0 rgb(50 50 50 / 15%);
+
+    img {
+        height: 60px;
+    }
+
+    h1 {
+        font-size: 26px;
+        color: rgba(236,92,92,0.7);
+        font-family: Montserrat;
+    }
 
     @media (max-width : 800px){
         height: auto;
@@ -40,11 +50,12 @@ export const BtnLink = styled.button`
     }
 `;
 
-export const DivBtn = styled.div`
+export const DivIcon = styled.div`
     @media(max-width: 800px){
         display: flex;
         flex-direction: column;
     }
+    display: flex;
 `;
 
 export const BtnSign = styled.button`
